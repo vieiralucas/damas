@@ -1,0 +1,112 @@
+@import 'animations.css';
+
+body {
+    font-family: sans-serif;
+    background: #EEE;
+    margin: 0;
+}
+
+h1, h2 {
+    color: #333;
+}
+
+.container {
+    margin: 1em;
+    -webkit-animation-name: totheground;
+    -webkit-animation-duration: 2s;
+    -webkit-animation-timing-function: ease-in-out;
+    -moz-animation-name: totheground;
+    -moz-animation-duration: 2s;
+    -moz-animation-timing-function: ease-in-out;
+    -ms-animation-name: totheground;
+    -ms-animation-duration: 2s;
+    -ms-animation-timing-function: ease-in-out;
+    -o-animation-duration: 2s;
+    -o-animation-timing-function: ease-in-out;
+}
+
+.tabuleiro {
+    margin: 0;
+    position: relative;
+    border: solid;
+    float: left;
+}
+
+.instructions {
+    padding-left: 20px;
+    float: left;
+}
+
+.casa {
+    display: block;
+    float: left;
+    width: 50px;
+    height: 50px;
+}
+
+.pedra {
+    -webkit-animation-name: fadein;
+    -webkit-animation-duration: .4s;
+    -webkit-animation-timing-function: ease-in-out;
+    -moz-animation-name: fadein;
+    -moz-animation-duration: .4s;
+    -moz-animation-timing-function: ease-in-out;
+    -ms-animation-name: fadein;
+    -ms-animation-duration: .4s;
+    -ms-animation-timing-function: ease-in-out;
+    -o-animation-duration: .4s;
+    -o-animation-timing-function: ease-in-out;
+}
+
+.casa-branca {
+    background-color: #FFF;
+}
+
+.casa-cinza {
+    background-color: #ABB7B7;
+}
+
+.clearer {
+    clear: both;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.linha {
+    clear: both;
+}
+ 
+.message {
+    padding-top: 80px;
+    font-size: 1.6vw;
+    font-weight: bold;
+}
+
+.temas {
+    padding-left: 40px;
+}
+
+a {
+    text-decoration: none;
+    color: #22A7F0;
+}
+
+a:hover {
+    color: #446CB3;
+}
+
+button {
+    display: inline-block;
+    padding: 4px 8px;
+    margin: 10px 0;
+}
+
+footer {
+    background: #AAA;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+    margin: 0;
+}

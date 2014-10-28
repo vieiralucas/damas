@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: casa.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: casa.js</h1>
+
+    
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>'use strict'
+
+/**
+ * Representa uma casa do tabuleiro
+ * @constructor
+ * @param {Number} x - Coordenada x
+ * @param {Number} y - Coordenada y
+ */
+function Casa(x, y, pedra) {
+    this.x = x;
+    this.y = y;
+    this.pedra = pedra;
+    this.dom = document.getElementById('casa'+ x + 'x' + y);
+    this.trueColor = this.dom.style.backgroundColor;
+    this.showingHint = false;
+    this.obrigatoria = false;
+    this.capturada = false;
+    this.setDomClick();
+}
+
+/**
+ * Método responsável por trocar o tema de uma casa, ou seja, 
+ * caso ela possua uma pedra, pedir para a pedra trocar de tema.
+ * @method
+ */
+Casa.prototype.changeTema = function() {
+    if(this.pedra) {
+        this.pedra.changeTema();
+    }
+};
+
+/**
+ * Devolve true se a casa possuir uma peça, caso contrário, false.
+ * @method
+ * @return {Boolean} true se a casa estiver ocupada
+ */
+Casa.prototype.isFilled = function() {
+    return this.pedra ? true : false;
+};
+
+/**
+ * Método responsável por mostrar a casa como uma opção de jogada.
+ * Troca a cor de fundo do seu dom.
+ * @method
+ */
+Casa.prototype.showHint = function() {
+    this.dom.style.backgroundColor = "rgba(38, 166, 91, 0.5)";
+    this.showingHint = true;
+};
+
+/**
+ * Método responsável por fazer a casa deixar de se mostrar como opção de jogada.
+ * Restaura a cor de fundo do seu dom para a padrão.
+ * @method
+ */
+Casa.prototype.stopHint = function() {
+    this.turnNormalColor();
+    this.showingHint = false;
+};
+
+/**
+ * Método responsável por tornar a casa uma opção de jogada obrigatória.
+ * Troca a cor de fundo do seu dom.
+ * @method
+ */
+Casa.prototype.turnObrigatoria = function() {
+    this.dom.style.backgroundColor = "rgba(247, 202, 124, 1)";
+    this.obrigatoria = true;
+};
+
+/**
+ * Método responsável por fazer a casa deixar de se mostrar como uma opção de jogada obrigatória.
+ * Restaura a cor de fundo do seu dom para o padrão.
+ * @method
+ */
+Casa.prototype.stopObrigatoria = function() {
+    this.turnNormalColor();
+    this.obrigatoria = false;
+};
+
+/**
+ * Método responsável por fazer a casa se marcar como detentora de uma pedra que foi capturada.
+ * Troca a cor de fundo do seu dom.
+ * @method
+ */
+Casa.prototype.turnCapturada = function() {
+    this.dom.style.backgroundColor = "rgba(207, 0, 15, 0.2)";
+    this.capturada = true;
+};
+
+/**
+ * Método responsável por fazer a casa deixar de se marcar como detentora de uma pedra que foi capturada.
+ * Chamado após ter sua pedra removida do tabuleiro.
+ * Restaura a cor de fundo do seu dom para o padrão.
+ * @method
+ */
+Casa.prototype.stopCapturada = function() {
+    this.turnNormalColor();
+    this.capturada = false;
+};
+
+/**
+ * Método responsável por restaurar a cor de fundo do dom para a padrão.
+ * @method
+ */
+Casa.prototype.turnNormalColor = function() {
+    this.dom.style.backgroundColor = this.trueColor;
+};
+
+/**
+ * Método responsável por adicionar o evento de click na casa
+ * @method
+ */
+Casa.prototype.setDomClick = function() {
+    var self = this;
+    this.dom.onclick = action;
+    this.dom.addEventListener('touchstart', action);
+
+    /**
+     * Função responsável por dizer o que será feito após um clique em uma casa.
+     * Tomara a decisão em cima de estados e propriedades da casa como "showingHint, obrigatoria, capturada".
+     * @type (Function)
+     */
+    function action() {
+        if(estadoAtual === estados.inicio) {
+            if(self.pedra) {
+                if(self.pedra.player === playerTurn) {
+                    if(tabuleiro.haObrigatorias) {
+                        if(self.obrigatoria) {
+                            tabuleiro.displayHint(self.x, self.y);
+                        }
+                    } else {
+                        tabuleiro.displayHint(self.x, self.y);
+                    }
+                }
+            } 
+        } else if(estadoAtual === estados.selecionado) {
+            if(self.showingHint) {
+                tabuleiro.fazJogada(self);
+            } else {
+                estadoAtual = estados.inicio;
+                tabuleiro.stopHint();
+            }
+        } else if(estadoAtual === estados.movendo) {
+            if(self.showingHint) {
+                tabuleiro.fazJogada(self);
+            }
+        }
+    }
+};
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Index</a></h2><h3>Classes</h3><ul><li><a href="Casa.html">Casa</a></li><li><a href="Pedra.html">Pedra</a></li><li><a href="Tabuleiro.html">Tabuleiro</a></li></ul><h3>Global</h3><ul><li><a href="global.html#casosEmpate">casosEmpate</a></li><li><a href="global.html#changeTema">changeTema</a></li><li><a href="global.html#contagemPedras">contagemPedras</a></li><li><a href="global.html#createDOM">createDOM</a></li><li><a href="global.html#empata">empata</a></li><li><a href="global.html#empateMsg">empateMsg</a></li><li><a href="global.html#estadoAtual">estadoAtual</a></li><li><a href="global.html#estados">estados</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#message">message</a></li><li><a href="global.html#messages">messages</a></li><li><a href="global.html#restart">restart</a></li><li><a href="global.html#tabuleiro">tabuleiro</a></li><li><a href="global.html#temaAtual">temaAtual</a></li><li><a href="global.html#temas">temas</a></li><li><a href="global.html#topPlayer">topPlayer</a></li></ul>
+</nav>
+
+<br clear="both">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-alpha9</a> on Tue Oct 21 2014 14:44:04 GMT-0200 (BRST)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

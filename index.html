@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Damas - Desafio Chaordic</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    
+    <div class="container">
+    <div class="tabuleiro" id="tabuleiro">
+        
+    </div>
+    <div class="instructions">
+        <h2 class="text-center">INSTRUÇÕES</h2>
+        <ol>
+            <li>O jogador que possui a vez deve selecionar uma pedra ou dama de sua posse.</li>
+            <li>Escolher uma posição para fazer o movimento.</li>
+        </ol>
+        <p class="message text-center"></p>
+    </div>
+    <div class="buttons clearer">
+        <button id="recomecar">Recomeçar</button>
+        <span class="temas">
+            <label for="temas">Tema: </label>
+            <select name="temas" id="select-temas">
+                <option value="0">CLÁSSICO</option>
+            </select>
+        </span>
+    </div>
+    </div>
+
+    <footer>
+        <p class="text-center">A documentação gerada com jsdoc pode ser encontrada <a href="docs/" target="_blank">aqui</a>.</p>
+    </footer>
+
+    <script type="text/javascript" src="js/temas.js"></script>
+    <script type="text/javascript" src="js/pedra.js"></script>
+    <script type="text/javascript" src="js/casa.js"></script>
+    <script type="text/javascript" src="js/tabuleiro.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
+</body>
+</html>
